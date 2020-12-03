@@ -1,0 +1,52 @@
+Setup and Readme for Catering Database Swing
+
+-------------
+Initial setup
+-------------
+
+This Java Swing project requires a connection to a Java Derby database using a suitable driver. 
+To create the initial database, rightclick the Java DB node within NetBeans services window and click "create database".
+The name of the database should be "orderdb" with a name and password of "app". The line of code defining the connection
+URL (1313 in the unaltered file) may have to be changed to correctly point to this database instance.
+
+For the data tables, utilize the following commands as an SQL query:
+
+CREATE TABLE "CLIENT" (
+     "NAME" VARCHAR(400),
+     "EMAIL" VARCHAR(400),
+     "PASSWORD" VARCHAR(400)
+);
+CREATE TABLE "STAFFMEMBER" (
+     "ACCESSLEVEL" VARCHAR(400),
+     "NAME" VARCHAR(400),
+     "EMAIL" VARCHAR(400),
+     "PASSWORD" VARCHAR(400)
+);
+CREATE TABLE "GOODSORDER" (
+    "ID" int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+    "CUSTNAME" VARCHAR(400),
+    "ADDRESSLINEONE" VARCHAR(400),
+    "ADDRESSLINETWO" VARCHAR(400),
+    "POSTCODE" VARCHAR(400),
+    "COST" DOUBLE,
+    "GOODS" VARCHAR(400),
+    "REQUESTS" VARCHAR(400),
+    "STATUS" VARCHAR(400),
+    "STAFFNAME" VARCHAR(400)  
+);
+
+To create a "admin" staff account that can access all functionality, enter the following SQL query:
+INSERT INTO STAFFMEMBER (ACCESSLEVEL, NAME, EMAIL, PASSWORD) VALUES ("Can delete", 'Admin', 'Admin', 'AccessAll');
+
+------------------
+Using the program
+------------------
+The program allows users to either log in as a client, (who can view or place their own orders), or as a staff member
+(who can create and modify client, staff and order data.) Staff may also delete data if they have a value of "Can delete"
+in the ACCESSLEVEL field of their table entry.
+
+A user must provide their name and password on initial loading of the program. After logging in successfully, they will be
+taken to either the client or staff menus for viewing and editing the data tables. 
+For staff the main menu provides the options to go to views of client, staff and order data, or to log out. From these
+tables, the staff member can go to forms to create, modify and delete. Clients can view their orders, create a new entry,
+or log out.
